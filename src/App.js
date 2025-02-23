@@ -10,15 +10,15 @@ function App() {
   // console.log();
 
   useEffect(()=>{
-    fetchBlogs(1);3
+    fetchBlogs(1);
   },[fetchBlogs])
 
   return (
-    <div>
+    <main className="w-full h-full flex flex-col gap-y-1 justify-center items-center">
       <Header />
       <Blogs />
       <Pagination />
-    </div>
+    </main>
   );
 }
 

@@ -1,5 +1,5 @@
-import { createContext, useState } from "react";
-import {baseUrl} from "../Baseurl";
+import { createContext, useState, useCallback } from "react";
+import { baseUrl } from "../Baseurl";
 
 // Create the context
 export const AppContext = createContext();
@@ -12,26 +12,26 @@ export default function AppContextProvider({ children }) {
    const [totalPages, setTotalPages] = useState(null);
 
    // Define the fetchBlogs function
-   const fetchBlogs = async (page) => {
+   const fetchBlogs = useCallback(async (pageNum) => {
       setLoading(true);
       try {
-         const response = await fetch(`${baseUrl}?page=${page}`);
+         const response = await fetch(`${baseUrl}?page=${pageNum}`);
+         if (!response.ok) {
+            throw new Error('Network response was not ok');
+         }
          const data = await response.json();
-         console.log(data);
          setPosts(data.posts);
          setPage(data.page);
          setTotalPages(data.totalPages);
-      }
-      catch(e){
-         console.log("Error fetching blogs");
+      } catch (error) {
+         console.error("Error fetching blogs:", error);
          setPosts([]);
          setPage(1);
          setTotalPages(null);
-      }
-      finally{    
+      } finally {
          setLoading(false);
       }
-   }
+   }, []);
 
    const value = {
       posts,
