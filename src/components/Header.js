@@ -6,7 +6,7 @@ function Header() {
     <header className="py-4 border-b bg-white shadow-sm fixed top-0 inset-x-0 z-10">
       <NavLink to="/">
         <h1 className="font-bold text-3xl uppercase text-center text-gray-800">
-        CodeHelp Blogs
+        My Blogs
       </h1>
       </NavLink>
     </header>
