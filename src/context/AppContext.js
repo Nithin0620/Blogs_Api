@@ -12,10 +12,17 @@ export default function AppContextProvider({ children }) {
    const [totalPages, setTotalPages] = useState(null);
 
    // Define the fetchBlogs function
-   const fetchBlogs = useCallback(async (pageNum) => {
+   const fetchBlogs = useCallback(async (pageNum=1,tags,category=null) => {
       setLoading(true);
+      let url =`${baseUrl}?page=${pageNum}`;
+      if(tags){
+         url= `${url}&tags=${tags}`;
+      }
+      if(category){
+         url = `${url}&category=${category}`;
+      }
       try {
-         const response = await fetch(`${baseUrl}?page=${pageNum}`);
+         const response = await fetch(url);
          if (!response.ok) {
             throw new Error('Network response was not ok');
          }
